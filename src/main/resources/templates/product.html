@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title th:if="${product != null}" th:text="${product.getId()}"></title>
+    <title th:if="${product == null}" th:text="'Not found'"></title>
 </head>
 <body>
-$END$
-</body>
+<header th:replace="~{fragments/header::header}"></header>
+  <main>
+      <p th:if="${exception}" th:text="${exception.getMessage()}"></p>
+      <table th:if="${product != null}">
+          <tr>
+              <td >
+                  <p>Title</p>
+              </td>
+              <td>
+                  <p>Description</p>
+              </td>
+              <td>
+                  <p>Price</p>
+              </td>
+          </tr>
+          <tr>
+              <td >
+                  <a th:text="${product.getTitle()}"></a>
+              </td>
+              <td>
+                  <a th:text="${product.getDescription()}"></a>
+              </td>
+              <td>
+                  <a th:text="${product.getPrice()}"></a>
+              </td>
+          </tr>
+      </table>
+
+      <div th:if="${account == null || (account != null && !account.getId().equals(product?.getSeller().getId()))}">
+          <form th:action="'/buy-product/' + ${product.getId()}">
+              <input type="submit" value="Buy" />
+          </form>
+      </div>
+      <div th:if="${account != null && account.getId().equals(product?.getSeller().getId()) && product.isActive()}">
+          <form th:action="'/product/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="delete">
+              <input type="submit" value="Confirm" />
+          </form>
+      </div>
+      <div th:if="${!product.isActive()}">
+          <p>
+              SOLD
+          </p>
+      </div>
+  </main>
+<footer th:replace="~{fragments/footer::footer}"></footer></body>
 </html>

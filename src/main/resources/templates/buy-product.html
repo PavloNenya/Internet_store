@@ -6,7 +6,41 @@
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <p>STUB</p>
+    <p th:if="${exception}" th:text="${exception.getMessage()}"></p>
+    <div th:if="${product != null}">
+        <p>Order confirmation</p>
+        <p>You sure you want to buy this product?</p>
+        <table>
+            <tr>
+                <td>
+                    <p>Title</p>
+                </td>
+                <td>
+                    <p>Description</p>
+                </td>
+                <td>
+                    <p>Price</p>
+                </td>
+            </tr>
+            <tr>
+                <td >
+                    <a th:text="${product.getTitle()}"></a>
+                </td>
+                <td>
+                    <a th:text="${product.getDescription()}"></a>
+                </td>
+                <td>
+                    <a th:text="${product.getPrice()}"></a>
+                </td>
+            </tr>
+        </table>
+        <form th:action="'/buy-product/' + ${product.getId()}" th:object="${product}" th:method="post">
+            <input type="submit" value="Confirm" />
+        </form>
+        <form th:action="'/products/' + ${product.getId()}" th:method="get">
+            <input type="submit" value="Decline" th:action="'/products/' + ${product.getId()}"/>
+        </form>
+    </div>
     <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>
 </html>

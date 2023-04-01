@@ -1,10 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Search</title>
 </head>
 <body>
-$END$
+  <header th:replace="~{fragments/header::header}"></header>
+  <main>
+    <div>
+      <p th:if="${products.size() > 0}" th:text="'Founded ' + ${products.size()} + ' results'"></p>
+      <table>
+        <tr>
+          <td >
+            <p>Title</p>
+          </td>
+          <td>
+            <p>Price</p>
+          </td>
+        </tr>
+        <tr th:each="product : ${products}">
+          <td >
+            <a th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+          </td>
+          <td>
+            <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </main>
+  <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>
 </html>

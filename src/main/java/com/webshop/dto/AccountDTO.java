@@ -1,13 +1,12 @@
-package com.webshop.models.requests;
+package com.webshop.dto;
 
 import lombok.*;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class AccountRequest {
+public class AccountDTO {
     private String name;
     private String email;
     private String password;

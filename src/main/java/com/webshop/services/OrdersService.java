@@ -1,20 +1,39 @@
 package com.webshop.services;
 
+import com.webshop.models.Account;
 import com.webshop.models.Order;
-import com.webshop.repositories.OrderRepository;
-import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import com.webshop.models.Product;
+import com.webshop.repositories.OrdersRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.Date;
-import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
-@AllArgsConstructor
-public class OrderService {
-    OrderRepository orderRepository;
+@RequiredArgsConstructor
+public class OrdersService {
+    private final OrdersRepository ordersRepository;
 
-    public Order formOrder(int productId, int clientId, int quantity) {
-        return orderRepository.save(new Order(productId, clientId, quantity, new Date()));
+    public Order formOrder(Account buyer, Account seller, Product product, Double sum) {
+        return ordersRepository.save(
+                Order.builder()
+                        .sum(product.getPrice())
+                        .buyer(buyer)
+                        .seller(seller)
+                        .date(new Date())
+                        .product(product)
+                        .sum(sum)
+                        .build()
+        );
+    }
+
+    public List<Product> boughtProducts(Long accountId) {
+        return StreamSupport.stream(ordersRepository.findOrdersBySellerId(accountId).spliterator(), false)
+                .map(Order::getProduct)
+                .toList();
     }
 }

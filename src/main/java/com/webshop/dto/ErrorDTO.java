@@ -1,2 +1,5 @@
-package com.webshop.dto;public class ErrorDTO {
-}
+package com.webshop.dto;
+
+public record ErrorDTO (
+        String error
+){ }

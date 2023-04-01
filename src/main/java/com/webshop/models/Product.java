@@ -1,27 +1,33 @@
 package com.webshop.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
-@Entity
+@Entity(name = "products")
 @Data
-public class Products {
+@NoArgsConstructor
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title, description;
     private double price;
+    @NonNull
+    @ManyToOne(
+            cascade = CascadeType.REMOVE,
+            fetch = FetchType.LAZY
+    )
+    @JoinColumn
+    private Account seller;
+    private boolean isActive = true;
 
-    public Products(String title, String description, double price) {
+    public Product(String title, String description, double price, Account seller) {
         this.title = title;
         this.description = description;
         this.price = price;
+        this.seller = seller;
     }
 
-    protected Products() {
-
-    }
 }

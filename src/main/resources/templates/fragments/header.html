@@ -1,8 +1,39 @@
-<header th:fragment="header">
-  <form action="../templates/index.html">
-    <input type="submit" value="Main page"/>
-  </form>
-<!--  <form action="/login">-->
-<!--    <input type="button" value="Main page"/>-->
-<!--  </form>-->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header th:fragment="header" class="header">
+<!--    <link rel="stylesheet" type="text/css" style="">-->
+    <a href="/" class="button">
+        <button type="submit">Main page</button>
+    </a>
+    <div>
+        <ul>
+            <li>
+                <a href="../account">Account</a>
+            </li>
+            <li>
+                <a href="../products">Products</a>
+            </li>
+            <li>
+                <a href="../add-product">Sell product</a>
+            </li>
+            <li>
+                <a href="../register">Register</a>
+            </li>
+        <li sec:authorize="isAuthenticated()">
+            <a href="../logout">Logout</a>
+        </li>
+        <li sec:authorize="isAnonymous()">
+            <a href="../login">Login</a>
+        </li>
+    </ul>
+    <form action="/search" th:method="get">
+      <label>
+        <input name="search" type="text" value="Search for products" />
+      </label>
+      <p>
+          <input type="submit" value="Search" />
+      </p>
+    </form>
+    </div>
 </header>
+</html>
