@@ -50,10 +50,10 @@
             </tr>
             <tr th:each="prod : ${bought}" >
                 <td>
-                    <a th:text="${prod.getTitle()}" th:href="@{'/products/' + ${prod.getId()}}"></a>
+                    <a th:text="${prod.getTitle()}" ></a>
                 </td>
                 <td>
-                    <a th:text="${prod.getPrice()}" th:href="@{'/products/' + ${prod.getId()}}"></a>
+                    <a th:text="${prod.getPrice()}" ></a>
                 </td>
 <!--                <td>-->
 <!--                    <a th:text="${prod.getSeller()}" th:href="@{''}"/>-->

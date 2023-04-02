@@ -5,7 +5,4 @@ public class BuyingOwnProductException extends RuntimeException {
         super("You can't buy your own product!");
     }
 
-    public BuyingOwnProductException(String message) {
-        super(message);
-    }
 }

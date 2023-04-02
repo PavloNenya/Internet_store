@@ -2,9 +2,6 @@ package com.webshop.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Date;
 
 @Entity(name = "orders")
@@ -25,11 +22,11 @@ public class Order {
     private Date date;
     private Double sum;
 
-    public Order(Account seller, Account buyer, Product product, Date date, Double sum) {
+    public Order(Account seller, Account buyer, Product product, Date date) {
         this.seller = seller;
         this.buyer = buyer;
         this.product = product;
         this.date = date;
-        this.sum = sum;
+        this.sum = product.getPrice();
     }
 }

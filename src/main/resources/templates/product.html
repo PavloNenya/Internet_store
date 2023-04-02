@@ -9,7 +9,8 @@
 <header th:replace="~{fragments/header::header}"></header>
   <main>
       <p th:if="${exception}" th:text="${exception.getMessage()}"></p>
-      <table th:if="${product != null}">
+      <p th:if="${deleted}" th:text="'Product deleted'"></p>
+      <table th:if="${product != null && exception == null}">
           <tr>
               <td >
                   <p>Title</p>
@@ -34,21 +35,29 @@
           </tr>
       </table>
 
-      <div th:if="${account == null || (account != null && !account.getId().equals(product?.getSeller().getId()))}">
+      <div th:if="${(account == null && product != null) || (product != null && account != null && !account.getId().equals(product?.getSeller().getId()))}">
           <form th:action="'/buy-product/' + ${product.getId()}">
               <input type="submit" value="Buy" />
           </form>
       </div>
-      <div th:if="${account != null && account.getId().equals(product?.getSeller().getId()) && product.isActive()}">
-          <form th:action="'/product/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="delete">
-              <input type="submit" value="Confirm" />
-          </form>
-      </div>
-      <div th:if="${!product.isActive()}">
+
+      <div th:if="${product != null && !product.isActive()}">
           <p>
               SOLD
           </p>
       </div>
+      <div th:if="${account != null && account.getId().equals(product?.getSeller().getId())}">
+          <div th:if="${delete != null}">
+              <p>You sure you want to delete this product?</p>
+              <form th:action="'/products/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="post">
+                  <input type="submit" value="Delete product" />
+              </form>
+          </div>
+          <form th:if="${delete == null}" th:action="'/products/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="get">
+              <input type="submit" value="Delete product" />
+          </form>
+      </div>
+
   </main>
 <footer th:replace="~{fragments/footer::footer}"></footer></body>
 </html>

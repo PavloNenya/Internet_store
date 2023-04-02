@@ -1,22 +1,20 @@
 package com.webshop.models;
 
-import com.webshop.services.ProductsService;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
-@Data
 @Builder
 @Entity(name = "accounts")
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Account implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,5 +63,17 @@ public class Account implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Account account = (Account) o;
+        return id.equals(account.id)
+                && Objects.equals(name, account.name)
+                && password.equals(account.password)
+                && email.equals(account.email)
+                && Objects.equals(products, account.products);
     }
 }

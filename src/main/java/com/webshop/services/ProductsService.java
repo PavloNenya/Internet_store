@@ -8,7 +8,6 @@ import com.webshop.repositories.ProductsRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @Service
@@ -17,7 +16,7 @@ public class ProductsService {
     ProductsRepository productsRepository;
 
     public List<ProductDTO> getAllProducts() {
-        return StreamSupport.stream(productsRepository.findAll().spliterator(), false)
+        return productsRepository.findAll().stream()
                 .map(this::productToDTO)
                 .toList();
     }
@@ -27,6 +26,7 @@ public class ProductsService {
                 product.getTitle(),
                 product.getDescription(),
                 product.getPrice(),
+                product.getSeller().getId(),
                 product.getId()
         );
     }
@@ -35,7 +35,6 @@ public class ProductsService {
         return productsRepository.save(product);
     }
 
-    // TODO: 28.03.2023
     public Product buyProduct(Long productId) {
         var productToDelete = findProductById(productId);
         productToDelete.setActive(false);
@@ -67,9 +66,13 @@ public class ProductsService {
     }
 
     public List<ProductDTO> getAllActiveProducts() {
-        return StreamSupport.stream(productsRepository.findAll().spliterator(), false)
+        return productsRepository.findAll().stream()
                 .filter(Product::isActive)
                 .map(this::productToDTO)
                 .toList();
+    }
+
+    public void deleteProduct(Long id) {
+        productsRepository.updateProductActivity(id, false);
     }
 }

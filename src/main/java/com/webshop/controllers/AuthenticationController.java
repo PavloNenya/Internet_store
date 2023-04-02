@@ -6,7 +6,6 @@ import com.webshop.exceptions.IncorrectEmailException;
 import com.webshop.services.AccountsService;
 import com.webshop.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +30,7 @@ public class AuthenticationController {
             @ModelAttribute AccountDTO accountDTO
     ) throws AccountAlreadyExistException, IncorrectEmailException {
         authenticationService.validation(accountDTO);
+        accountsService.existsByEmail(accountDTO.getEmail());
         ModelAndView mav = new ModelAndView();
         accountsService.save(accountDTO);
         mav.setViewName("success");

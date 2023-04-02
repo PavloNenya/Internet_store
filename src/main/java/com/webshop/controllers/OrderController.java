@@ -2,7 +2,6 @@ package com.webshop.controllers;
 
 import com.webshop.exceptions.BuyingOwnProductException;
 import com.webshop.exceptions.ProductNotFoundException;
-import com.webshop.models.Account;
 import com.webshop.services.AccountsService;
 import com.webshop.services.OrdersService;
 import com.webshop.services.ProductsService;
@@ -44,7 +43,7 @@ public class OrderController {
         var mav = new ModelAndView();
         var buyer = accountsService.findAccountByPrincipal(principal);
         var product = productsService.getProductById(id);
-        ordersService.formOrder(buyer, product.getSeller(), product, product.getPrice());
+        ordersService.formOrder(buyer, product.getSeller(), product);
         productsService.buyProduct(product.getId());
         mav.setViewName("success");
         mav.addObject("bought");

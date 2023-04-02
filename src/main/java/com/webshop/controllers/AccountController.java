@@ -18,7 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
     private final AccountsService accountsService;
-    private final ProductsService productsService;
     private final OrdersService ordersService;
     @GetMapping("/account")
     public ModelAndView account(
@@ -30,13 +29,13 @@ public class AccountController {
         List<Product> boughtProducts = ordersService.boughtProducts(account.getId());
         model.addAttribute("account", account);
         model.addAttribute("bought", boughtProducts);
-        model.addAttribute("products", productsService.findProductsBySeller(account));
+        model.addAttribute(
+                "products",
+                account.getProducts().stream()
+                        .filter(Product::isActive)
+                        .toList()
+        );
         mav.setViewName("account");
         return mav;
     }
-
-//    @GetMapping("/account/orders")
-//    public ModelAndView boughtProducts() {
-//        orderService.findProductsByBuyer();
-//    }
 }

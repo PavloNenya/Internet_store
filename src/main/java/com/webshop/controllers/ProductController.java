@@ -62,19 +62,6 @@ public class ProductController {
         return mav;
     }
 
-    @DeleteMapping("/products/{id}/delete")
-    public ModelAndView productDelete(
-            @PathVariable(name = "id") Long id,
-            Model model,
-            Principal principal
-    ) throws ProductNotFoundException {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("product");
-        model.addAttribute("account", accountsService.findAccountByPrincipal(principal));
-        model.addAttribute("product", productsService.getProductById(id));
-        return mav;
-    }
-
     @GetMapping("/products")
     public ModelAndView getAllProducts(Model model) {
         var mav = new ModelAndView();
@@ -92,6 +79,38 @@ public class ProductController {
         var mav = new ModelAndView();
         model.addAttribute("products", result);
         mav.setViewName("search");
+        return mav;
+    }
+
+    @GetMapping("/products/{id}/delete")
+    public ModelAndView productDeleteGet(
+            @PathVariable(name = "id") Long id,
+            Model model,
+            Principal principal
+    ) throws ProductNotFoundException {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("product");
+        model.addAttribute("account", accountsService.findAccountByPrincipal(principal));
+        model.addAttribute("product", productsService.findProductById(id));
+        model.addAttribute("delete", "");
+        return mav;
+    }
+
+    @PostMapping("/products/{id}/delete")
+    public ModelAndView productDelete(
+            @PathVariable(name = "id") Long id,
+            Model model,
+            Principal principal
+    ) throws ProductNotFoundException {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("success");
+        var product = productsService.findProductById(id);
+        accountsService.deleteProductFromAccount(
+                product,
+                accountsService.findAccountByPrincipal(principal)
+        );
+        productsService.deleteProduct(id);
+        model.addAttribute("deleted", "");
         return mav;
     }
 

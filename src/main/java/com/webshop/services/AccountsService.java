@@ -1,18 +1,16 @@
 package com.webshop.services;
 
-import com.webshop.models.Account;
 import com.webshop.dto.AccountDTO;
+import com.webshop.exceptions.AccountAlreadyExistException;
+import com.webshop.models.Account;
+import com.webshop.models.Product;
 import com.webshop.repositories.AccountsRepository;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -20,10 +18,11 @@ public class AccountsService {
     private final AccountsRepository accountsRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean existsByEmail(String email) {
-        return getByEmail(email).isPresent();
+    public boolean existsByEmail(String email) throws AccountAlreadyExistException {
+        if(getByEmail(email).isPresent()) {
+            throw new AccountAlreadyExistException("Account already exists!");
+        } else return false;
     }
-
     public Account save(AccountDTO accountDTO) {
         Account account = Account.builder()
                 .name(accountDTO.getName())
@@ -32,26 +31,28 @@ public class AccountsService {
                 .build();
         return accountsRepository.save(account);
     }
-
     public Account save(Account account) {
         return accountsRepository.save(account);
     }
-
     public Optional<Account> getByEmail(String email) {
-        return StreamSupport
-                .stream(accountsRepository.findAll().spliterator(), false)
+        return accountsRepository.findAll().stream()
                 .filter(account -> account.getEmail().equals(email))
                 .findFirst();
     }
-
     public List<Account> getAllAccounts() {
-        return StreamSupport.stream(accountsRepository.findAll().spliterator(), false)
+        return accountsRepository.findAll().stream()
                 .toList();
     }
-
     public Account findAccountByPrincipal(Principal principal) {
         if (principal == null) return null;
         return accountsRepository.findAccountByEmail(principal.getName())
                 .orElse(null);
+    }
+
+    public void deleteProductFromAccount(Product product, Account account) {
+        System.out.println(account.getProducts());
+        System.out.println("delete from acc called");
+        account.getProducts().removeIf(product1 -> product1.getId().equals(product.getId()));
+        System.out.println(account.getProducts());
     }
 }
