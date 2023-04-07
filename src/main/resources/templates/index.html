@@ -1,11 +1,14 @@
 <!DOCTYPE html>
-<html lang="uk"  xmlns:th="https://www.thymeleaf.org">
+<html lang="uk" xmlns:th="https://www.thymeleaf.org"
+    xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Store</title>
+    <meta charset="UTF-8">
+    <title>Store</title>
+    <link th:href="@{../static/css/index.css}" rel="stylesheet"/>
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
+    <p class="welcome">Welcome to shop!</p>
     <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>
 </html>

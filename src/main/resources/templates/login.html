@@ -2,38 +2,69 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Login</title>
+  <link rel="stylesheet" th:href="@{../static/css/login.css}">
 </head>
 <body>
 <header th:replace="~{fragments/header::header}"></header>
 
-<div th:if="${param.error}">
-  Invalid username or password.
-</div>
-<div th:if="${param.logout}">
-  You have been logged out.
-</div>
-<form th:action="@{/login}" method="post">
-<!--  <div><label> Name: <input type="text" name="name"/> </label></div>-->
-  <div>
-    <label>
-      Email:
-      <input type="text" name="username"/>
-    </label>
-  </div>
-  <div>
-    <label>
-      Password:
-      <input type="password" name="password"/>
-    </label>
-  </div>
-  <div>
-    <input type="submit" value="Sign In"/>
-  </div>
-</form>
-<div>
-  Don't have account?
-  <form action="/register">
-    <input type="submit" value="Register"/>
+<!--  <div class="login">-->
+<!--    <form class="login-form" th:action="@{/login}" method="post">-->
+<!--      <div class="invalid-data" th:if="${param.error}">-->
+<!--        Invalid username or password.-->
+<!--      </div>-->
+<!--      <div th:if="${param.logout}">-->
+<!--        You have been logged out.-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label>-->
+<!--          <input type="text" name="username" placeholder="Email"/>-->
+<!--        </label>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label>-->
+<!--          <input type="password" name="password" placeholder="Password"/>-->
+<!--        </label>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <input type="submit" value="Sign In"/>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <form class="register-redirect" action="/register">-->
+<!--          <input type="button" value="Don't have account?" th:action="@{/register}" />-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </form>-->
+
+<!--  </div>-->
+
+<div class="login">
+  <form id="login-form" class="login-form" method="post">
+    <div class="invalid-data" th:if="${param.error}">
+      Invalid username or password.
+    </div>
+    <div th:if="${param.logout}">
+      You have been logged out.
+    </div>
+    <div>
+      <label>
+        <input type="text" name="username" placeholder="Email" />
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="password" name="password" placeholder="Password" />
+      </label>
+    </div>
+    <div class="button-container">
+      <div>
+        <input type="submit" value="Sign In" form="login-form"/>
+      </div>
+      <div>
+        <form id="register-form" class="register-redirect" action="/register">
+          <input type="submit" value="Register" form="register-form" onclick="location.href='/register'"/>
+        </form>
+      </div>
+    </div>
   </form>
 </div>
 

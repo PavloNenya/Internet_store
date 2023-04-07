@@ -40,6 +40,7 @@ public class OrderController {
             @PathVariable Long id,
             Principal principal
     ) throws ProductNotFoundException {
+
         var mav = new ModelAndView();
         var buyer = accountsService.findAccountByPrincipal(principal);
         var product = productsService.getProductById(id);
@@ -50,17 +51,5 @@ public class OrderController {
         return mav;
     }
 
-    @ExceptionHandler({
-            ProductNotFoundException.class,
-            BuyingOwnProductException.class
-    })
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ModelAndView handleException(
-            Exception e
-    ) {
-        var mav = new ModelAndView();
-        mav.setViewName("buy-product");
-        mav.addObject("exception", e);
-        return mav;
-    }
+
 }

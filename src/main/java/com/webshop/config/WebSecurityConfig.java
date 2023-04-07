@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @EnableWebSecurity
 @Configuration
@@ -34,12 +35,14 @@ public class WebSecurityConfig {
                                 "/products",
                                 "/products/**",
                                 "/search/**",
-                                "/register").permitAll()
+                                "/register",
+                                "/static/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
+//                        .defaultSuccessUrl("/")     //
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")
@@ -48,7 +51,6 @@ public class WebSecurityConfig {
                 )
                 .logout(LogoutConfigurer::permitAll)
                 .httpBasic();
-
         return http.build();
     }
 
@@ -65,11 +67,6 @@ public class WebSecurityConfig {
         authenticationProvider.setPasswordEncoder(passwordEncoder());
         return authenticationProvider;
     }
-
-//    @Bean
-//    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-//        return configuration.getAuthenticationManager();
-//    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {

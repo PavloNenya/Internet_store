@@ -1,39 +1,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<header th:fragment="header" class="header">
-<!--    <link rel="stylesheet" type="text/css" style="">-->
-    <a href="/" class="button">
-        <button type="submit">Main page</button>
-    </a>
-    <div>
-        <ul>
-            <li>
-                <a href="../account">Account</a>
-            </li>
-            <li>
-                <a href="../products">Products</a>
-            </li>
-            <li>
-                <a href="../add-product">Sell product</a>
-            </li>
-            <li>
-                <a href="../register">Register</a>
-            </li>
-        <li sec:authorize="isAuthenticated()">
-            <a href="../logout">Logout</a>
-        </li>
-        <li sec:authorize="isAnonymous()">
-            <a href="../login">Login</a>
-        </li>
-    </ul>
-    <form action="/search" th:method="get">
-      <label>
-        <input name="search" type="text" value="Search for products" />
-      </label>
-      <p>
-          <input type="submit" value="Search" />
-      </p>
-    </form>
+<header th:fragment="header" class="header" >
+    <link th:href="@{../static/css/header.css}" rel="stylesheet"/>
+    <div id="header-container">
+        <a th:href="@{/}" class="button">
+            <button id="main-page-button" type="submit">Main page</button>
+        </a>
+        <div class="links">
+            <a href="/account">Account</a>
+            <a href="/products">Products</a>
+            <a href="/add-product">Sell product</a>
+            <a href="/register">Register</a>
+            <a sec:authorize="isAuthenticated()" href="/logout">Logout</a>
+            <a sec:authorize="isAnonymous()" href="/login">Login</a>
+        </div>
+        <form class="search" action="/search" th:method="get">
+            <label>
+                <input class="search-bar" name="search" type="text" placeholder="Search for products" />
+            </label>
+            <button class="search-button" type="submit" >Search</button>
+        </form>
+        <a class="cart" href="/cart">Cart</a>
     </div>
 </header>
 </html>

@@ -38,16 +38,5 @@ public class AuthenticationController {
         return mav;
     }
 
-    @ExceptionHandler({
-            AccountAlreadyExistException.class,
-            IncorrectEmailException.class
-    })
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ModelAndView handleException(Exception e, Model model) {
-        ModelAndView mav = new ModelAndView();
-        mav.setViewName("register");
-        model.addAttribute("exception", e);
-        model.addAttribute("accountDTO", new AccountDTO());
-        return mav;
-    }
+
 }

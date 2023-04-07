@@ -1,8 +1,10 @@
 package com.webshop.services;
 
 import com.webshop.dto.ProductDTO;
+import com.webshop.exceptions.IncorrectProductDataException;
 import com.webshop.exceptions.ProductNotFoundException;
 import com.webshop.models.Account;
+import com.webshop.models.Cart;
 import com.webshop.models.Product;
 import com.webshop.repositories.ProductsRepository;
 import lombok.AllArgsConstructor;
@@ -32,13 +34,20 @@ public class ProductsService {
     }
 
     public Product addProduct(Product product) {
+        if(product.getDescription().isEmpty()
+                || product.getTitle().isEmpty()
+                || product.getPrice() < 0
+        ) {
+            throw new IncorrectProductDataException();
+        }
         return productsRepository.save(product);
     }
 
     public Product buyProduct(Long productId) {
         var productToDelete = findProductById(productId);
-        productToDelete.setActive(false);
-        productsRepository.updateProductActivity(productId, false);
+//        productToDelete.setActive(false);
+//        productsRepository.updateProductActivity(productId, false);
+        productsRepository.deleteById(productId);
         return productToDelete;
     }
 
@@ -48,7 +57,7 @@ public class ProductsService {
     }
 
     public List<ProductDTO> findProductByName(String search) {
-        return getAllProducts()
+        return getAllActiveProducts()
                 .stream()
                 .filter(p -> p.getTitle().contains(search))
                 .toList();
@@ -74,5 +83,15 @@ public class ProductsService {
 
     public void deleteProduct(Long id) {
         productsRepository.updateProductActivity(id, false);
+    }
+
+    public List<Product> getProductsFromCart(List<Cart> cart) {
+        return cart.stream()
+                .map(Cart::getProduct)
+                .toList();
+    }
+
+    public void buyProducts(List<Product> products) {
+        products.forEach(product -> buyProduct(product.getId()));
     }
 }

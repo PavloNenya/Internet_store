@@ -9,8 +9,12 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 public class ProductDTO {
+    @NonNull
     private String title, description;
+    @NonNull
     private double price;
+    @NonNull
     private Long sellerId;
+    @NonNull
     private Long id;
 }

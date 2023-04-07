@@ -26,10 +26,6 @@ public class Account implements UserDetails {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "seller")
     private List<Product> products;
 
-    public void addProduct(Product product) {
-        products.add(product);
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;

@@ -14,20 +14,15 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NonNull
     private String title, description;
+    @NonNull
     private double price;
     @NonNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn
     private Account seller;
     private boolean isActive = true;
-
-    public Product(String title, String description, double price, Account seller) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.seller = seller;
-    }
 
     @Override
     public boolean equals(Object o) {

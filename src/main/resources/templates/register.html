@@ -3,33 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
+    <link rel="stylesheet" th:href="@{../static/css/register.css}">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <div th:if="${param.error}" th:text="'Invalid email or password'"> </div>
-    <div th:if="${exception}" th:text="${exception.getMessage()}"/>
+    <div class="register">
+        <div th:if="${param.error}" th:text="'Invalid email or password'"> </div>
+        <div th:if="${exception}" th:text="${exception.getMessage()}"/>
 
-    <form th:action="@{/register}" method="post" th:object="${accountDTO}">
-        <p> Name:
-            <label>
-                <input type="text" name="name" th:field="*{name}"/>
-            </label>
-        </p>
-        <p>
-            <label> Email:
-                <input type="text" name="email" th:field="*{email}"/>
-            </label>
-        </p>
-        <p>
-            <label> Password:
-                <input type="text" name="password" th:field="*{password}"/>
-            </label>
-        </p>
-        <div>
-            <input type="submit" value="Register"/>
-        </div>
-    </form>
-
+        <form th:action="@{/register}" method="post" th:object="${accountDTO}">
+            <p>
+                <label>
+                    <input type="text" name="name" th:field="*{name}" placeholder="Name"/>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="text" name="email" th:field="*{email}" placeholder="Email"/>
+                </label>
+            </p>
+            <p>
+                <label>
+                    <input type="text" name="password" th:field="*{password}" placeholder="Password"/>
+                </label>
+            </p>
+            <div>
+                <input type="submit" value="Register"/>
+            </div>
+        </form>
+    </div>
     <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>
 </html>

@@ -1,3 +1,13 @@
-<footer th:fragment="footer">
-    <p>© 2023 Internet Shop</p>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
+<footer class="footer" th:fragment="footer">
+    <link rel="stylesheet" th:href="@{../static/css/footer.css}">
+
+    <div class="contacts">
+        <p>Phone: +380123456789</p>
+        <p>Email: internet-shop@gmail.com</p>
+    </div>
+    <div class="company-name">
+        <p>© 2023 Internet Shop</p>
+    </div>
 </footer>
+</html>

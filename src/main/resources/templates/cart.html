@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+
+</head>
+<body>
+    <header th:replace="~{fragments/header::header}"></header>
+    <main>
+        <table>
+            <tr>
+                <td >
+                    <p>Title</p>
+                </td>
+                <td>
+                    <p>Price</p>
+                </td>
+            </tr>
+            <tr th:each="product : ${cart}" >
+                <td >
+                    <a th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                </td>
+                <td>
+                    <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                </td>
+                <td>
+                    <form th:method="post" th:action="'/cart/delete/' + ${product.getId()}">
+                        <input type="submit"  value="Delete from cart">
+                    </form>
+                </td>
+            </tr>
+        </table>
+        <form th:if="${cart != null || (cart != null && !cart.isEmpty())}" th:method="post" th:action="'/cart/buy'">
+            <input type="submit"  value="Buy products">
+        </form>
+    </main>
+    <footer th:replace="~{fragments/footer}"></footer></body>
+</body>
+</html>

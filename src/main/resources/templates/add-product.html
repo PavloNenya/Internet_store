@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Sell</title>
+    <link rel="stylesheet" th:href="@{../static/css/add-product.css}">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <form action="/success" th:action="@{/add-product}" th:object="${product}" method="post">
+    <form class="add-product-form" action="/success" th:action="@{/add-product}" th:object="${product}" method="post">
+        <p th:if="${exception != null}" th:text="${exception.getMessage()}"></p>
         <p>Title:
             <label>
                 <input type="text" th:field="*{title}" />

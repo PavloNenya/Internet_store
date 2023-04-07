@@ -3,63 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <title>Account</title>
+    <link rel="stylesheet" th:href="@{../static/css/account.css}">
 </head>
 <body>
 <header th:replace="~{fragments/header::header}"></header>
-    <div th:if="${account != null}">
-        <p th:text="'Name: ' + ${account.getName()}"></p>
-        <p th:text="'Email: ' + ${account.getEmail()}"></p>
-    </div>
-    <div th:if="${products != null && products.size() > 0}">
-        <a>Your products:</a>
-        <table>
-            <tr>
-                <td>
-                    <p>Title</p>
-                </td>
-                <td>
-                    <p>Price</p>
-                </td>
-            </tr>
-            <tr th:each="product : ${products}" >
-                <td>
-                    <a th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
-                </td>
-                <td>
-                    <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
-                </td>
-                <td>
-                    <div th:if="${!product.isActive()}" th:text="'SOLD'"></div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div th:if="${bought != null && bought.size() > 0}">
-        <a>Bought products:</a>
-        <table>
-            <tr>
-                <td>
-                    <p>Title</p>
-                </td>
-                <td>
-                    <p>Price</p>
-                </td>
-<!--                <td>-->
-<!--                    <p>Seller</p>-->
-<!--                </td>-->
-            </tr>
-            <tr th:each="prod : ${bought}" >
-                <td>
-                    <a th:text="${prod.getTitle()}" ></a>
-                </td>
-                <td>
-                    <a th:text="${prod.getPrice()}" ></a>
-                </td>
-<!--                <td>-->
-<!--                    <a th:text="${prod.getSeller()}" th:href="@{''}"/>-->
-<!--                </td>-->
-            </tr>
-        </table>
+    <div class="container">
+        <div th:if="${account != null}">
+            <p th:text="'Name: ' + ${account.getName()}"></p>
+            <p th:text="'Email: ' + ${account.getEmail()}"></p>
+        </div>
+        <div th:if="${products != null && products.size() > 0}">
+            <a>Your products:</a>
+            <table>
+                <tr>
+                    <td>
+                        <p>Title</p>
+                    </td>
+                    <td>
+                        <p>Price</p>
+                    </td>
+                </tr>
+                <tr th:each="product : ${products}" >
+                    <td>
+                        <a th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                    </td>
+                    <td>
+                        <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                    </td>
+                    <td>
+                        <div th:if="${!product.isActive()}" th:text="'SOLD'"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${bought != null && bought.size() > 0}">
+            <a>Bought products:</a>
+            <table>
+                <tr>
+                    <td>
+                        <p>Title</p>
+                    </td>
+                    <td>
+                        <p>Price</p>
+                    </td>
+                    <!--                <td>-->
+                    <!--                    <p>Seller</p>-->
+                    <!--                </td>-->
+                </tr>
+                <tr th:each="prod : ${bought}" >
+                    <td>
+                        <a th:text="${prod.getTitle()}" ></a>
+                    </td>
+                    <td>
+                        <a th:text="${prod.getPrice()}" ></a>
+                    </td>
+                    <!--                <td>-->
+                    <!--                    <a th:text="${prod.getSeller()}" th:href="@{''}"/>-->
+                    <!--                </td>-->
+                </tr>
+            </table>
+        </div>
     </div>
 <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>

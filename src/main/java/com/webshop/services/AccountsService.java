@@ -48,11 +48,4 @@ public class AccountsService {
         return accountsRepository.findAccountByEmail(principal.getName())
                 .orElse(null);
     }
-
-    public void deleteProductFromAccount(Product product, Account account) {
-        System.out.println(account.getProducts());
-        System.out.println("delete from acc called");
-        account.getProducts().removeIf(product1 -> product1.getId().equals(product.getId()));
-        System.out.println(account.getProducts());
-    }
 }

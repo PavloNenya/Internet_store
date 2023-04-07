@@ -3,16 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Success</title>
+    <link rel="stylesheet" th:href="@{../static/css/success.css}">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <p th:if="${registered != null}" th:text="'Account registered successfully'" ></p>
-    <p th:if="${added != null}" th:text="'Product added successfully!'"></p>
-    <p th:if="${deleted != null}" th:text="'Product deleted successfully!'"></p>
-    <p th:if="${bought != null}" th:text="'Сongratulations on your new purchase!'"></p>
-    <form action="/">
-    <input type="submit" value="Go to main page" />
-    </form>
+    <div class="success-message">
+        <p th:if="${registered != null}" th:text="'Account registered successfully'" ></p>
+        <p th:if="${added != null}" th:text="'Product added successfully!'"></p>
+        <p th:if="${deleted != null}" th:text="'Product deleted successfully!'"></p>
+        <p th:if="${bought != null}" th:text="'Сongratulations on your new purchase!'"></p>
+        <form action="/">
+            <input type="submit" value="Go to main page" />
+        </form>
+    </div>
     <footer th:replace="~{fragments/footer::footer}"></footer>
 </body>
 </html>

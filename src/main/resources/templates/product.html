@@ -39,6 +39,15 @@
           <form th:action="'/buy-product/' + ${product.getId()}">
               <input type="submit" value="Buy" />
           </form>
+<!--          -->
+<!--          <div th:if="${account == null || (account != null && !cart)}">-->
+              <form th:if="${account == null || (account != null && !cart)}" th:action="'/cart/add/' + ${product.getId()}" th:method="post">
+                  <input type="submit" value="Add to cart" />
+              </form>
+              <form th:if="${account != null && cart}" th:action="'/cart'" th:method="get">
+                  <input type="submit" value="Already in cart"/>
+              </form>
+<!--          </div>-->
       </div>
 
       <div th:if="${product != null && !product.isActive()}">
