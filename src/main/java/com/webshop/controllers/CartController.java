@@ -3,7 +3,7 @@ package com.webshop.controllers;
 import com.webshop.models.Cart;
 import com.webshop.models.Product;
 import com.webshop.services.AccountsService;
-import com.webshop.services.CartService;
+import com.webshop.services.CartsService;
 import com.webshop.services.OrdersService;
 import com.webshop.services.ProductsService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,7 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CartController {
     private final AccountsService accountsService;
-    private final CartService cartService;
+    private final CartsService cartsService;
     private final ProductsService productsService;
     private final OrdersService ordersService;
 
@@ -30,9 +30,12 @@ public class CartController {
     public ModelAndView cart(Principal principal) {
         ModelAndView mav = new ModelAndView();
         var account = accountsService.findAccountByPrincipal(principal);
-        var cart = cartService.findCartList(account.getId());
-        var carProducts = productsService.getProductsFromCart(cart);
-        mav.addObject("cart", carProducts);
+        var cart = cartsService.findOwnersCartList(account.getId());
+        List<Product> cartProducts = productsService.getProductsFromCart(cart);
+        mav.addObject("cart", cartProducts);
+
+        System.out.println(cartProducts);
+
         mav.setViewName("cart");
         return mav;
     }
@@ -50,7 +53,7 @@ public class CartController {
                 product,
                 account
         );
-        cartService.saveCart(cart);
+        cartsService.saveCart(cart);
         mav.addObject("addedToCart");
         mav.setViewName("product");
         response.sendRedirect("/products/" + id);
@@ -77,7 +80,7 @@ public class CartController {
         ModelAndView mav = new ModelAndView();
         var account = accountsService.findAccountByPrincipal(principal);
         var product = productsService.getProductById(id);
-        cartService.deleteFromCart(account, product);
+        cartsService.deleteFromCart(account, product);
         mav.setViewName("cart");
         response.sendRedirect("/cart");
         return mav;
@@ -95,10 +98,10 @@ public class CartController {
     ) throws IOException {
         ModelAndView mav = new ModelAndView();
         var buyer = accountsService.findAccountByPrincipal(principal);
-        List<Product> products = cartService.getProductsFromCart(buyer);
+        List<Product> products = cartsService.getProductsFromCart(buyer);
         ordersService.buyCart(products, buyer);
         productsService.buyProducts(products);
-        cartService.emptyOwnersCart(buyer);
+        cartsService.emptyOwnersCart(buyer);
         mav.setViewName("success");
         mav.addObject("bought", "");
         response.sendRedirect("/cart/buy");

@@ -30,8 +30,8 @@ public class OrdersService {
         return ordersRepository.save(order);
     }
 
-    public List<Product> boughtProducts(Long accountId) {
-        return StreamSupport.stream(ordersRepository.findOrdersByBuyerId(accountId).spliterator(), false)
+    public List<Product> boughtProducts(Account account) {
+        return StreamSupport.stream(ordersRepository.findOrdersByBuyerId(account.getId()).spliterator(), false)
                 .map(Order::getProduct)
                 .toList();
     }

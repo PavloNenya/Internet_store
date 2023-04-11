@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Buy </title>
+    <link rel="stylesheet" href="/static/css/buy-product.css">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
     <p th:if="${exception}" th:text="${exception.getMessage()}"></p>
-    <div th:if="${product != null}">
+    <div class="buy-product" th:if="${product != null}">
         <p>Order confirmation</p>
         <p>You sure you want to buy this product?</p>
         <table>

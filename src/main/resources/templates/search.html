@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
+    <link rel="stylesheet" href="/static/css/search.css">
 </head>
 <body>
   <header th:replace="~{fragments/header::header}"></header>
-  <main>
+  <main class="search-table">
     <div>
-      <p th:if="${products.size() > 0}" th:text="'Founded ' + ${products.size()} + ' results'"></p>
+      <p th:if="${products.size() > 0}" th:text="'Found ' + ${products.size()} + ' results'"></p>
       <table>
         <tr>
           <td >
@@ -17,6 +18,9 @@
           <td>
             <p>Price</p>
           </td>
+          <td>
+            <p>Description</p>
+          </td>
         </tr>
         <tr th:each="product : ${products}">
           <td >
@@ -24,6 +28,9 @@
           </td>
           <td>
             <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+          </td>
+          <td>
+            <a th:text="${product.getDescription()}" th:href="@{'/products/' + ${product.getId()}}"></a>
           </td>
         </tr>
       </table>

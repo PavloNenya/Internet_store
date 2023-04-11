@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CartRepository extends JpaRepository<Cart, Long> {
+public interface CartsRepository extends JpaRepository<Cart, Long> {
 
     List<Cart> findCartsByOwnerId(Long ownerId);
     @Modifying

@@ -2,41 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
   <title>Login</title>
-  <link rel="stylesheet" th:href="@{../static/css/login.css}">
+  <link rel="stylesheet" href="/static/css/login.css">
 </head>
 <body>
 <header th:replace="~{fragments/header::header}"></header>
-
-<!--  <div class="login">-->
-<!--    <form class="login-form" th:action="@{/login}" method="post">-->
-<!--      <div class="invalid-data" th:if="${param.error}">-->
-<!--        Invalid username or password.-->
-<!--      </div>-->
-<!--      <div th:if="${param.logout}">-->
-<!--        You have been logged out.-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <label>-->
-<!--          <input type="text" name="username" placeholder="Email"/>-->
-<!--        </label>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <label>-->
-<!--          <input type="password" name="password" placeholder="Password"/>-->
-<!--        </label>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <input type="submit" value="Sign In"/>-->
-<!--      </div>-->
-<!--      <div>-->
-<!--        <form class="register-redirect" action="/register">-->
-<!--          <input type="button" value="Don't have account?" th:action="@{/register}" />-->
-<!--        </form>-->
-<!--      </div>-->
-<!--    </form>-->
-
-<!--  </div>-->
-
 <div class="login">
   <form id="login-form" class="login-form" method="post">
     <div class="invalid-data" th:if="${param.error}">

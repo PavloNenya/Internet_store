@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Account</title>
-    <link rel="stylesheet" th:href="@{../static/css/account.css}">
+    <link rel="stylesheet" href="/static/css/account.css">
 </head>
 <body>
 <header th:replace="~{fragments/header::header}"></header>
@@ -22,16 +22,25 @@
                     <td>
                         <p>Price</p>
                     </td>
+                    <td>
+                        <p>Description</p>
+                    </td>
                 </tr>
                 <tr th:each="product : ${products}" >
                     <td>
-                        <a th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                        <a th:if="${product.isActive()}" th:text="${product.getTitle()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                        <p th:if="${!product.isActive()}" th:text="${product.getTitle()}" ></p>
                     </td>
                     <td>
-                        <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                        <a th:if="${product.isActive()}" th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                        <p th:if="${!product.isActive()}" th:text="${product.getPrice()}" ></p>
                     </td>
                     <td>
-                        <div th:if="${!product.isActive()}" th:text="'SOLD'"></div>
+                        <a th:if="${product.isActive()}" th:text="${product.getDescription()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                        <p th:if="${!product.isActive()}" th:text="${product.getDescription()}" ></p>
+                    </td>
+                    <td th:if="${!product.isActive()}">
+                        <div  th:text="'SOLD'"></div>
                     </td>
                 </tr>
             </table>
@@ -46,20 +55,20 @@
                     <td>
                         <p>Price</p>
                     </td>
-                    <!--                <td>-->
-                    <!--                    <p>Seller</p>-->
-                    <!--                </td>-->
+                    <td>
+                        <p>Description</p>
+                    </td>
                 </tr>
                 <tr th:each="prod : ${bought}" >
                     <td>
-                        <a th:text="${prod.getTitle()}" ></a>
+                        <p th:text="${prod.getTitle()}"></p>
                     </td>
                     <td>
-                        <a th:text="${prod.getPrice()}" ></a>
+                        <p th:text="${prod.getPrice()}"></p>
                     </td>
-                    <!--                <td>-->
-                    <!--                    <a th:text="${prod.getSeller()}" th:href="@{''}"/>-->
-                    <!--                </td>-->
+                    <td>
+                        <p th:text="${prod.getDescription()}"></p>
+                    </td>
                 </tr>
             </table>
         </div>

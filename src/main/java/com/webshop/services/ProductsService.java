@@ -45,9 +45,9 @@ public class ProductsService {
 
     public Product buyProduct(Long productId) {
         var productToDelete = findProductById(productId);
-//        productToDelete.setActive(false);
-//        productsRepository.updateProductActivity(productId, false);
-        productsRepository.deleteById(productId);
+        productToDelete.setActive(false);
+        productsRepository.updateProductActivity(productId, false);
+//        productsRepository.deleteById(productId);
         return productToDelete;
     }
 
@@ -56,7 +56,7 @@ public class ProductsService {
                 .orElseThrow(ProductNotFoundException::new);
     }
 
-    public List<ProductDTO> findProductByName(String search) {
+    public List<ProductDTO> findProductsByName(String search) {
         return getAllActiveProducts()
                 .stream()
                 .filter(p -> p.getTitle().contains(search))

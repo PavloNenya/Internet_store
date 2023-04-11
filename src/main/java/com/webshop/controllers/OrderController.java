@@ -40,14 +40,13 @@ public class OrderController {
             @PathVariable Long id,
             Principal principal
     ) throws ProductNotFoundException {
-
         var mav = new ModelAndView();
         var buyer = accountsService.findAccountByPrincipal(principal);
         var product = productsService.getProductById(id);
         ordersService.formOrder(buyer, product.getSeller(), product);
         productsService.buyProduct(product.getId());
         mav.setViewName("success");
-        mav.addObject("bought");
+        mav.addObject("bought", "");
         return mav;
     }
 

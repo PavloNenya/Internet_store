@@ -1,0 +1,75 @@
+.product-table {
+    font-family: Arial, sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
+}
+
+.product-table a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.product-table table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table td, table th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Стилі для блоків з даними */
+.product-table div {
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Стилі для стану "SOLD" */
+.product-table div:empty::before {
+    content: "SOLD";
+    color: #fff;
+    background-color: #d9534f;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+
+
+/*------------------*/
+form {
+    padding: 10px;
+}
+
+input[type="submit"] {
+    padding: 10px;
+    background-color: #cc6615;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #8f3700;
+}
+
+.buyer-forms,
+.seller-forms {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

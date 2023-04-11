@@ -2,14 +2,17 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/spring-web-site
+    url: jdbc:mysql://localhost:3306/spring-web-site
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    show-sql: true
     hibernate:
       ddl-auto: update
   flyway:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/spring-web-site
+    url: jdbc:mysql://localhost:3306/spring-web-site?ssl=false
     user: root
     password: root
+    locations: classpath:/db/migration/
 
 server:
   port: 8080

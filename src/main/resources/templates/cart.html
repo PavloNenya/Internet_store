@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Cart</title>
-
+    <link rel="stylesheet" href="/static/css/cart.css">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <main>
+    <main class="cart-table">
         <table>
             <tr>
                 <td >
@@ -15,6 +15,9 @@
                 </td>
                 <td>
                     <p>Price</p>
+                </td>
+                <td>
+                    <p>Description</p>
                 </td>
             </tr>
             <tr th:each="product : ${cart}" >
@@ -25,13 +28,16 @@
                     <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
                 </td>
                 <td>
+                    <a th:text="${product.getDescription()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                </td>
+                <td class="delete-button">
                     <form th:method="post" th:action="'/cart/delete/' + ${product.getId()}">
                         <input type="submit"  value="Delete from cart">
                     </form>
                 </td>
             </tr>
         </table>
-        <form th:if="${cart != null || (cart != null && !cart.isEmpty())}" th:method="post" th:action="'/cart/buy'">
+        <form th:if="${cart != null && !cart.isEmpty()}" th:method="post" th:action="'/cart/buy'">
             <input type="submit"  value="Buy products">
         </form>
     </main>

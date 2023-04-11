@@ -3,10 +3,9 @@ package com.webshop.controllers;
 import com.webshop.dto.ProductDTO;
 import com.webshop.exceptions.ProductNotFoundException;
 import com.webshop.models.Account;
-import com.webshop.models.Cart;
 import com.webshop.models.Product;
 import com.webshop.services.AccountsService;
-import com.webshop.services.CartService;
+import com.webshop.services.CartsService;
 import com.webshop.services.ProductsService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ import java.util.List;
 public class ProductController {
     private final ProductsService productsService;
     private final AccountsService accountsService;
-    private final CartService cartService;
+    private final CartsService cartsService;
 
     @GetMapping("/add-product")
     public ModelAndView getAddProduct(Model model) {
@@ -64,7 +63,7 @@ public class ProductController {
         mav.addObject("account", account);
         mav.addObject("product", product);
         if(account != null) {
-            mav.addObject("cart", cartService.isProductInCartByOwner(product, account));
+            mav.addObject("cart", cartsService.isProductInCartOfOwner(product, account));
         }
         return mav;
     }
@@ -82,7 +81,7 @@ public class ProductController {
             @RequestParam(name = "search") String search,
             Model model
     ) {
-        List<ProductDTO> result = productsService.findProductByName(search);
+        List<ProductDTO> result = productsService.findProductsByName(search);
         var mav = new ModelAndView();
         model.addAttribute("products", result);
         mav.setViewName("search");
@@ -92,26 +91,24 @@ public class ProductController {
     @GetMapping("/products/{id}/delete")
     public ModelAndView productDeleteGet(
             @PathVariable(name = "id") Long id,
-            Model model,
             Principal principal
     ) throws ProductNotFoundException {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("product");
-        model.addAttribute("account", accountsService.findAccountByPrincipal(principal));
-        model.addAttribute("product", productsService.findProductById(id));
-        model.addAttribute("delete", "");
+        mav.addObject("account", accountsService.findAccountByPrincipal(principal));
+        mav.addObject("product", productsService.findProductById(id));
+        mav.addObject("delete", "");
         return mav;
     }
 
     @PostMapping("/products/{id}/delete")
     public ModelAndView productDelete(
-            @PathVariable(name = "id") Long id,
-            Model model
+            @PathVariable(name = "id") Long id
     ) throws ProductNotFoundException {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("success");
         productsService.deleteProduct(id);
-        model.addAttribute("deleted", "");
+        mav.addObject("deleted", "");
         return mav;
     }
 

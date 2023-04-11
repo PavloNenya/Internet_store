@@ -3,10 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Products</title>
+    <link rel="stylesheet" href="/static/css/products.css">
 </head>
 <body>
     <header th:replace="~{fragments/header::header}"></header>
-    <main>
+    <main class="products-table">
         <table>
             <tr>
                 <td >
@@ -15,6 +16,9 @@
                 <td>
                     <p>Price</p>
                 </td>
+                <td>
+                    <p>Description</p>
+                </td>
             </tr>
             <tr th:each="product : ${products}" >
                 <td >
@@ -22,6 +26,9 @@
                 </td>
                 <td>
                     <a th:text="${product.getPrice()}" th:href="@{'/products/' + ${product.getId()}}"></a>
+                </td>
+                <td>
+                    <a th:text="${product.getDescription()}" th:href="@{'/products/' + ${product.getId()}}"></a>
                 </td>
             </tr>
         </table>

@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title th:if="${product != null}" th:text="${product.getId()}"></title>
     <title th:if="${product == null}" th:text="'Not found'"></title>
+    <link rel="stylesheet" href="/static/css/product.css">
 </head>
 <body>
 <header th:replace="~{fragments/header::header}"></header>
-  <main>
+  <main class="product-table">
       <p th:if="${exception}" th:text="${exception.getMessage()}"></p>
       <p th:if="${deleted}" th:text="'Product deleted'"></p>
       <table th:if="${product != null && exception == null}">
@@ -35,19 +36,16 @@
           </tr>
       </table>
 
-      <div th:if="${(account == null && product != null) || (product != null && account != null && !account.getId().equals(product?.getSeller().getId()))}">
+      <div class="buyer-forms" th:if="${(account == null && product != null) || (product != null && account != null && !account.getId().equals(product?.getSeller().getId()))}">
           <form th:action="'/buy-product/' + ${product.getId()}">
               <input type="submit" value="Buy" />
           </form>
-<!--          -->
-<!--          <div th:if="${account == null || (account != null && !cart)}">-->
-              <form th:if="${account == null || (account != null && !cart)}" th:action="'/cart/add/' + ${product.getId()}" th:method="post">
-                  <input type="submit" value="Add to cart" />
-              </form>
-              <form th:if="${account != null && cart}" th:action="'/cart'" th:method="get">
-                  <input type="submit" value="Already in cart"/>
-              </form>
-<!--          </div>-->
+          <form th:if="${account == null || (account != null && !cart)}" th:action="'/cart/add/' + ${product.getId()}" th:method="post">
+              <input type="submit" value="Add to cart" />
+          </form>
+          <form th:if="${account != null && cart}" th:action="'/cart'" th:method="get">
+              <input type="submit" value="Already in cart"/>
+          </form>
       </div>
 
       <div th:if="${product != null && !product.isActive()}">
@@ -55,11 +53,11 @@
               SOLD
           </p>
       </div>
-      <div th:if="${account != null && account.getId().equals(product?.getSeller().getId())}">
+      <div class="seller-forms" th:if="${account != null && account.getId().equals(product?.getSeller().getId())}">
           <div th:if="${delete != null}">
               <p>You sure you want to delete this product?</p>
               <form th:action="'/products/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="post">
-                  <input type="submit" value="Delete product" />
+                  <input type="submit" value="Confirm" />
               </form>
           </div>
           <form th:if="${delete == null}" th:action="'/products/' + ${product.getId()} + '/delete'" th:object="${product}" th:method="get">

@@ -1,13 +1,72 @@
+/*.container {*/
+/*    top: 50%;*/
+/*    left: 50%;*/
+/*    transform: translateY(-50%) translateX(-50%);*/
+/*    position: absolute;*/
+/*    width: 80%; !* фіксована ширина контейнера *!*/
+
+/*}*/
+
+/*table {*/
+/*    width: 100%; !* розтягнути таблицю на всю ширину батьківського контейнера *!*/
+/*}*/
+
+/*td {*/
+/*    padding: 5px; !* відступи між комірками таблиці *!*/
+/*    text-align: center; !* вирівнювання тексту всередині комірок по центру *!*/
+/*}*/
+
+/* Загальні стилі */
+body {
+    background-color: #f8f8f8;
+    margin: 0;
+}
+
 .container {
-    margin: auto; /* вирівнювання по центру */
-    width: 80%; /* фіксована ширина контейнера */
+    font-family: Arial, sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
 }
 
-table {
-    width: 100%; /* розтягнути таблицю на всю ширину батьківського контейнера */
+.container a {
+    color: #337ab7;
+    text-decoration: none;
 }
 
-td {
-    padding: 5px; /* відступи між комірками таблиці */
-    text-align: center; /* вирівнювання тексту всередині комірок по центру */
+.container table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+table td, table th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Стилі для блоків з даними */
+.container div {
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Стилі для стану "SOLD" */
+.container div:empty::before {
+    content: "SOLD";
+    color: #fff;
+    background-color: #d9534f;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
 }

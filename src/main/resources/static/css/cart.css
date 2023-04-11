@@ -1,0 +1,69 @@
+.cart-table {
+    font-family: Arial, sans-serif;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 100px 20px 20px;
+}
+
+.cart-table a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.cart-table table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.delete-button {
+     padding: 8px;
+     text-align: left;
+ }
+
+table td:not(.delete-button), table th {
+    padding: 8px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* Стилі для блоків з даними */
+.cart-table div {
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* Стилі для стану "SOLD" */
+.cart-table div:empty::before {
+    content: "SOLD";
+    color: #fff;
+    background-color: #d9534f;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.cart-table input[type="submit"],
+.cart-table input[type="reset"] {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.cart-table input[type="submit"]:hover,
+.cart-table input[type="reset"]:hover {
+    background-color: #3e8e41;
+}
+
