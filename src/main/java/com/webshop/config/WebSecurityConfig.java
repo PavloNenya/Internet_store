@@ -25,20 +25,27 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .cors()
+                .and()
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers(
-                                "/",
-                                "/products",
-                                "/products/**",
-                                "/search/**",
-                                "/register",
-                                "/static/**").permitAll()
-                        .anyRequest().authenticated()
+                                "/account",
+                                "/cart",
+                                "/cart/**",
+                                "/buy-product",
+                                "/buy-product/**",
+                                "/add-product/**",
+                                "/add-product"
+                        )
+
+                        .authenticated()
+                        .anyRequest().permitAll()
                 )
+//                .isHttpStatus401 -> redirect to /login
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .permitAll()
-                        .defaultSuccessUrl("/")     //
+                        .defaultSuccessUrl("/")
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout")

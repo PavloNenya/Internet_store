@@ -117,8 +117,10 @@ class OrdersServiceTest {
                 seller
         );
         product.setId(3L);
+        seller.setProducts(List.of(product));
+
         //Act
-        Order order = ordersService.formOrder(buyer, seller, product);
+        Order order = ordersService.formOrder(buyer, product);
         order.setDate(null);
 
         //Assert

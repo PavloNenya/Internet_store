@@ -37,8 +37,8 @@ public class Product {
                 && seller.getId().equals(product.getSeller().getId());
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, description, price, seller, isActive);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(id, title, description, price, seller, isActive);
+//    }
 }

@@ -8,7 +8,6 @@ import org.apache.catalina.realm.GenericPrincipal;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,12 +61,22 @@ class AccountsServiceTest {
         // Arrange
         String email1 = "pavel.nenya228@gmail.com";
         String email2 = "notexisting@gmail.com";
+        AccountDTO account1 = new AccountDTO(
+                "Pavlo",
+                email1,
+                "qwerty123"
+        );
+        AccountDTO account2 = new AccountDTO(
+                "Ivan",
+                email2,
+                "qwerty123"
+        );
 
         // Act
-        boolean foundAccount2 = accountsService.existsByEmail(email2);
+        boolean foundAccount2 = accountsService.existsByEmail(account2);
 
         // Assert
-        Assertions.assertThrows(AccountAlreadyExistException.class, () -> accountsService.existsByEmail(email1));
+        Assertions.assertThrows(AccountAlreadyExistException.class, () -> accountsService.existsByEmail(account1));
         Assertions.assertFalse(foundAccount2);
     }
 

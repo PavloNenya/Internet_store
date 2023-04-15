@@ -2,7 +2,6 @@ package com.webshop.dto;
 
 import lombok.*;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

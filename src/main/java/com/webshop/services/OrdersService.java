@@ -16,14 +16,14 @@ import java.util.stream.StreamSupport;
 public class OrdersService {
     private final OrdersRepository ordersRepository;
 
-    public Order formOrder(Account buyer, Account seller, Product product) {
+    public Order formOrder(Account buyer, Product product) {
         if(!product.isActive()) {
             throw new ProductNotFoundException();
         }
         var order = Order.builder()
                 .sum(product.getPrice())
                 .buyer(buyer)
-                .seller(seller)
+                .seller(product.getSeller())
                 .date(new Date())
                 .product(product)
                 .build();
@@ -37,6 +37,6 @@ public class OrdersService {
     }
 
     public void buyCart(List<Product> products, Account buyer) {
-        products.forEach(product -> formOrder(buyer, product.getSeller(), product));
+        products.forEach(product -> formOrder(buyer, product));
     }
 }

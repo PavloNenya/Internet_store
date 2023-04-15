@@ -3,11 +3,11 @@ package com.webshop.services;
 import com.webshop.dto.AccountDTO;
 import com.webshop.exceptions.AccountAlreadyExistException;
 import com.webshop.models.Account;
-import com.webshop.models.Product;
 import com.webshop.repositories.AccountsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
@@ -18,8 +18,8 @@ public class AccountsService {
     private final AccountsRepository accountsRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public boolean existsByEmail(String email) throws AccountAlreadyExistException {
-        if(getByEmail(email).isPresent()) {
+    public boolean existsByEmail(AccountDTO accountDTO) throws AccountAlreadyExistException {
+        if(getByEmail(accountDTO.getEmail()).isPresent()) {
             throw new AccountAlreadyExistException("Account already exists!");
         } else return false;
     }

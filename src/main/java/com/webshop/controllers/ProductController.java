@@ -98,6 +98,7 @@ public class ProductController {
         mav.addObject("account", accountsService.findAccountByPrincipal(principal));
         mav.addObject("product", productsService.findProductById(id));
         mav.addObject("delete", "");
+        mav.addObject("cart", false);
         return mav;
     }
 

@@ -3,13 +3,11 @@ package com.webshop.models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "carts")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

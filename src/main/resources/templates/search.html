@@ -10,6 +10,7 @@
   <main class="search-table">
     <div>
       <p th:if="${products.size() > 0}" th:text="'Found ' + ${products.size()} + ' results'"></p>
+      <p th:if="${products.size() == 0}" th:text="'No products found'"></p>
       <table>
         <tr>
           <td >

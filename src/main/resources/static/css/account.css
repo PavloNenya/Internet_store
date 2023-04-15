@@ -1,22 +1,3 @@
-/*.container {*/
-/*    top: 50%;*/
-/*    left: 50%;*/
-/*    transform: translateY(-50%) translateX(-50%);*/
-/*    position: absolute;*/
-/*    width: 80%; !* фіксована ширина контейнера *!*/
-
-/*}*/
-
-/*table {*/
-/*    width: 100%; !* розтягнути таблицю на всю ширину батьківського контейнера *!*/
-/*}*/
-
-/*td {*/
-/*    padding: 5px; !* відступи між комірками таблиці *!*/
-/*    text-align: center; !* вирівнювання тексту всередині комірок по центру *!*/
-/*}*/
-
-/* Загальні стилі */
 body {
     background-color: #f8f8f8;
     margin: 0;
@@ -51,7 +32,6 @@ table th {
     font-weight: bold;
 }
 
-/* Стилі для блоків з даними */
 .container div {
     margin-bottom: 20px;
 }
@@ -61,7 +41,6 @@ p {
     line-height: 1.5;
 }
 
-/* Стилі для стану "SOLD" */
 .container div:empty::before {
     content: "SOLD";
     color: #fff;

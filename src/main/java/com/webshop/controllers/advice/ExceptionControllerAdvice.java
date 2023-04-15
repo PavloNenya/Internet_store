@@ -4,7 +4,6 @@ import com.webshop.dto.AccountDTO;
 import com.webshop.dto.ProductDTO;
 import com.webshop.exceptions.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -18,11 +17,11 @@ public class ExceptionControllerAdvice {
             IncorrectEmailException.class
     })
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ModelAndView handleException(Exception e, Model model) {
+    public ModelAndView accountException(Exception e) {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("register");
-        model.addAttribute("exception", e);
-        model.addAttribute("accountDTO", new AccountDTO());
+        mav.addObject("exception", e);
+        mav.addObject("accountDTO", new AccountDTO());
         return mav;
     }
 

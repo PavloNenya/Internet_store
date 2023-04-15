@@ -14,12 +14,12 @@ import java.util.List;
 public class CartsService {
     private final CartsRepository cartsRepository;
 
-    public List<Cart> findOwnersCartList(Long id) {
-        return cartsRepository.findCartsByOwnerId(id);
+    public List<Cart> findOwnersCartList(Account account) {
+        return cartsRepository.findCartsByOwnerId(account.getId());
     }
 
     public Cart saveCart(Cart cart) {
-        List<Cart> carts = findOwnersCartList(cart.getOwner().getId());
+        List<Cart> carts = findOwnersCartList(cart.getOwner());
         if(!carts.contains(cart)) {
             return cartsRepository.save(cart);
         }
@@ -39,7 +39,7 @@ public class CartsService {
     }
 
     public List<Product> getProductsFromCart(Account owner) {
-        return findOwnersCartList(owner.getId()).stream()
+        return findOwnersCartList(owner).stream()
                 .map(Cart::getProduct)
                 .toList();
     }

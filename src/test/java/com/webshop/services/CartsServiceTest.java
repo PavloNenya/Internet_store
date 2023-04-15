@@ -115,7 +115,7 @@ class CartsServiceTest {
         Cart cart = new Cart(2L, product2, seller1);
 
         //Act
-        var res = cartsService.findOwnersCartList(seller1.getId());
+        var res = cartsService.findOwnersCartList(seller1);
 
         //Assert
         Assertions.assertEquals(1, res.size());
@@ -203,7 +203,7 @@ class CartsServiceTest {
 
         //Act
         cartsService.deleteFromCart(buyer, product2);
-        var res = cartsService.findOwnersCartList(buyer.getId());
+        var res = cartsService.findOwnersCartList(buyer);
 
         //Assert
         Assertions.assertNull(res.get(0).getProduct());
@@ -302,7 +302,7 @@ class CartsServiceTest {
 
         //Act
         cartsService.emptyOwnersCart(owner);
-        var res = cartsService.findOwnersCartList(owner.getId());
+        var res = cartsService.findOwnersCartList(owner);
 
         //Assert
         Assertions.assertEquals(1, res.size());

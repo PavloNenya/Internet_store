@@ -1,0 +1,31 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-size: 24px;
+    text-align: center;
+}
+
+.container p {
+    margin: 20px 0;
+}
+
+.container form {
+    margin-top: 30px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}

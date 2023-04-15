@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link rel="stylesheet" href="/static/css/error.css">
+</head>
+<body>
+    <header th:replace="~{fragments/header::header}"></header>
+    <div class="container">
+        <h1>Error Page</h1>
+        <p>Sorry, the page you are looking for could not be found.</p>
+        <form action="/">
+            <input type="submit" value="Go to main page" />
+        </form>
+    </div>
+    <footer th:replace="~{fragments/footer::footer}"></footer>
+</body>
+</html>

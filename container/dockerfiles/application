@@ -1,0 +1,9 @@
+FROM amazoncorretto:17.0.5-alpine
+EXPOSE 8080
+RUN addgroup -S spring-group && adduser -S spring -G spring-group
+USER spring:spring-group
+ARG JAR_FILE=internet-shop.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar", "app.jar"]
+#HEALTHCHECK --interval=15s --timeout=3s CMD curl --fail 0.0.0.0:3306 || exit 1
+#http://mysql-server:3306/spring-web-site

@@ -2,27 +2,19 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/spring-web-site
+#    url: jdbc:mysql://localhost:3306/spring-web-site
+    url: jdbc:mysql://mysql-server:3306/spring-web-site
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
   flyway:
-    url: jdbc:mysql://localhost:3306/spring-web-site?ssl=false
+#    url: jdbc:mysql://localhost:3306/spring-web-site?ssl=false
+    url: jdbc:mysql://mysql-server:3306/spring-web-site?ssl=false
     user: root
     password: root
     locations: classpath:/db/migration/
 
 server:
   port: 8080
-
-#server.port=8080
-##management.endpoints.web.exposure.include=*
-##management.endpoint.shutdown.enabled=true
-#spring.jpa.hibernate.ddl-auto=update
-#spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/spring-web-site
-#spring.datasource.username=root
-#spring.datasource.password=root
-##spring.datasource.driver-class-name=com.webshop.repositories.ProductsRepository
-##spring.jpa.show-sql=true
